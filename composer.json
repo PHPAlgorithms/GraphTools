@@ -1,0 +1,23 @@
+{
+  "name": "algorithms/graphtools",
+  "description": "Graph tools to another math algorithms.",
+  "type": "library",
+  "homepage": "https://github.com/PHPAlgorithms/GraphTools",
+  "keywords": ["algorithm", "graph", "math", "tool", "tools"],
+  "authors": [
+    {
+      "name": "ventaquil",
+      "email": "ventaquil@outlook.com"
+    }
+  ],
+  "license": "MIT",
+  "autoload": {
+    "psr-0": {
+      "Algorithms": "src/",
+      "Algorithms\\Tests": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=5.4.0"
+  }
+}
