@@ -20,9 +20,9 @@ class Creator
         return $rand;
     }
 
-    private function pointNotExists($point_id)
+    private function pointNotExists($pointId)
     {
-        if (isset($this->points[$point_id])) {
+        if (isset($this->points[$pointId])) {
             throw new CreatorException('Point was added earlier');
         }
 
@@ -38,19 +38,19 @@ class Creator
         return true;
     }
 
-    private function createPointFromID($point_id, $label = null)
+    private function createPointFromID($pointId, $label = null)
     {
-        if ($this->pointNotExists($point_id) && $this->labelNotExists($label)) {
+        if ($this->pointNotExists($pointId) && $this->labelNotExists($label)) {
             if (empty($label)) {
-                $new_point = Point::create($point_id);
+                $newPoint = Point::create($pointId);
             } else {
-                $this->labels[$label] = $point_id;
-                $new_point = Point::create($point_id, $label);
+                $this->labels[$label] = $pointId;
+                $newPoint = Point::create($pointId, $label);
             }
 
-            $this->points[$point_id] = $new_point;
+            $this->points[$pointId] = $newPoint;
 
-            return $new_point;
+            return $newPoint;
         }
     }
 
@@ -72,21 +72,21 @@ class Creator
         return $object;
     }
 
-    public function getPoint($point_id)
+    public function getPoint($pointId)
     {
         try {
-            return $this->getPointOrFail($point_id);
+            return $this->getPointOrFail($pointId);
         } catch (PointException $e) {
             return null;
         }
     }
 
-    public function getPointOrFail($point_id)
+    public function getPointOrFail($pointId)
     {
-        if (isset($this->points[$point_id])) {
-            return $this->points[$point_id];
-        } elseif (isset($this->labels[$point_id])) {
-            return $this->points[$this->labels[$point_id]];
+        if (isset($this->points[$pointId])) {
+            return $this->points[$pointId];
+        } elseif (isset($this->labels[$pointId])) {
+            return $this->points[$this->labels[$pointId]];
         } else {
             throw new PointException('Point not exists');
         }
@@ -96,12 +96,12 @@ class Creator
     {
         $relations = array();
 
-        foreach ($this->points as $point_id => $point) {
-            $relations[$point_id] = $point->getDinstances();
+        foreach ($this->points as $pointId => $point) {
+            $relations[$pointId] = $point->getDinstances();
 
-            foreach ($relations[$point_id] as $array_to_analyze) {
-                if (!isset($relations[$array_to_analyze[0]])) {
-                    $relations[$array_to_analyze[0]] = array();
+            foreach ($relations[$pointId] as $arrayToAnalyze) {
+                if (!isset($relations[$arrayToAnalyze[0]])) {
+                    $relations[$arrayToAnalyze[0]] = array();
                 }
             }
         }
