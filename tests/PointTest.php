@@ -22,6 +22,8 @@ class PointTest extends \PHPUnit_Framework_TestCase
         $creator->addPoint($point)
                 ->addRelation(2, 6);
 
-        $this->assertEquals($creator->getPoint(6), $point);
+        $this->assertEquals($creator->getPoint(6)
+                                    ->getLabel(),
+                            $point->getLabel());
     }
 }

@@ -24,49 +24,60 @@ class Creator
         return $rand;
     }
 
+    private function pointNotExists($point_id)
+    {
+        if (!isset($this->points[$point_id])) {
+            return true;
+        } else {
+            throw new CreatorException('Point was added earlier');
+        }
+    }
+
+    private function labelNotExists($label)
+    {
+        if ($label != null) {
+            if (!isset($this->labels[$label])) {
+                return true;
+            } else {
+                throw new CreatorException('Label exists! Must be unique');
+            }
+        } else {
+            return true;
+        }
+    }
+
     private function createPointFromID($point_id, $label = null)
     {
-        if (empty($label)) {
-            $new_point = Point::create($point_id);
-        } else {
-            $new_point = Point::create($point_id, $label);
+        if ($this->pointNotExists($point_id) && $this->labelNotExists($label)) {
+            if (empty($label)) {
+                $new_point = Point::create($point_id);
+            } else {
+                $this->labels[$label] = $point_id;
+                $new_point = Point::create($point_id, $label);
+            }
+
+            $this->points[$point_id] = $new_point;
+
+            return $new_point;
         }
-
-        $this->points[$point_id] = $new_point;
-
-        return $new_point;
     }
 
     public function addPoint($point)
     {
         if (Point::checkPoint($point)) {
-            $id = $point->getID();
-
-            $this->points[$id] = $point;
-
-            $label = $point->getLabel();
-            if (!empty($label)) {
-                $this->labels[$label] = $id;
-            }
-
-            return $point;
+            return $this->addPointObject($point);
         } elseif (self::checkPointID($point) == 'int') {
-            if (!isset($this->points[$point])) {
-                return self::createPointFromID($point);
-            } else {
-                throw new CreatorException('Point was added earlier');
-            }
+            return self::createPointFromID($point);
         } else {
-            if (!isset($this->labels[$point])) {
-                $id = $this->randNewID();
-
-                $this->labels[$point] = $id;
-
-                return self::createPointFromID($id);
-            } else {
-                throw new CreatorException('Point was added earlier');
-            }
+            return self::createPointFromID($this->randNewID(), $point);
         }
+    }
+
+    private function addPointObject($object)
+    {
+        $this->createPointFromID($object->getID(), $object->getLabel());
+
+        return $object;
     }
 
     public function getPoint($point_id)
