@@ -8,11 +8,7 @@ class Creator
 
     private static function checkPointID($point)
     {
-        if (is_int($point) && ($point > 0)) {
-            return 'int';
-        } else {
-            return 'string';
-        }
+        return (is_int($point) && ($point > 0)) ? 'int' : 'string';
     }
 
     private function randNewID()
@@ -26,24 +22,20 @@ class Creator
 
     private function pointNotExists($point_id)
     {
-        if (!isset($this->points[$point_id])) {
-            return true;
-        } else {
+        if (isset($this->points[$point_id])) {
             throw new CreatorException('Point was added earlier');
         }
+
+        return true;
     }
 
     private function labelNotExists($label)
     {
-        if ($label != null) {
-            if (!isset($this->labels[$label])) {
-                return true;
-            } else {
-                throw new CreatorException('Label exists! Must be unique');
-            }
-        } else {
-            return true;
+        if (($label != null) && (isset($this->labels[$label]))) {
+            throw new CreatorException('Label exists! Must be unique');
         }
+
+        return true;
     }
 
     private function createPointFromID($point_id, $label = null)
@@ -85,7 +77,7 @@ class Creator
         try {
             return $this->getPointOrFail($point_id);
         } catch (PointException $e) {
-            return NULL;
+            return null;
         }
     }
 

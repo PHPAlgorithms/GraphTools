@@ -3,32 +3,28 @@ namespace Algorithms\GraphTools;
 
 class Point
 {
-    private $id;
+    private $_id;
     private $distances = array();
     private $label = null;
 
-    public function __construct($point_id, $label = null)
+    public function __construct($pointId, $label = null)
     {
-        if (is_int($point_id)) {
-            $this->id = $point_id;
+        if (is_int($pointId)) {
+            $this->_id = $pointId;
             $this->label = $label;
         } else {
             throw new PointException('Wrong data sent');
         }
     }
 
-    public static function create($point_id, $label = null)
+    public static function create($pointId, $label = null)
     {
-        return new self($point_id, $label);
+        return new self($pointId, $label);
     }
 
     public static function checkPoint($point)
     {
-        if ($point instanceof self) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+        return ($point instanceof self);
     }
 
     public static function validate($point)
@@ -55,8 +51,8 @@ class Point
     {
         $distances = array();
 
-        foreach ($this->distances as $point_id => $distance) {
-            $distances[] = [$point_id, $distance];
+        foreach ($this->distances as $pointId => $distance) {
+            $distances[] = [$pointId, $distance];
         }
 
         return $distances;
@@ -66,16 +62,12 @@ class Point
     {
         $point = $this::validate($point);
 
-        if (isset($this->distances[$point])) {
-            return $this->distances[$point];
-        } else {
-            return FALSE;
-        }
+        return (isset($this->distances[$point])) ? $this->distances[$point] : false;
     }
 
     public function getID()
     {
-        return $this->id;
+        return $this->_id;
     }
 
     public function getLabel()
