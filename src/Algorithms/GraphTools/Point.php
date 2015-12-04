@@ -9,7 +9,7 @@ class Point
 
     public function __construct($pointId, $label = null)
     {
-        if (is_int($pointId)) {
+        if (filter_var($pointId, FILTER_VALIDATE_INT) !== false) {
             $this->_id = $pointId;
             $this->label = $label;
         } else {
@@ -29,7 +29,7 @@ class Point
 
     public static function validate($point)
     {
-        if (is_int($point)) {
+        if (filter_var($point, FILTER_VALIDATE_INT) !== false) {
             return $point;
         } elseif (self::checkPoint($point)) {
             return $point->getID();

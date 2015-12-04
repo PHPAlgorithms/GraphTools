@@ -8,7 +8,7 @@ class Creator
 
     private static function checkPointID($point)
     {
-        return (is_int($point) && ($point > 0)) ? 'int' : 'string';
+        return ((filter_var($point, FILTER_VALIDATE_INT) !== false) && ($point > 0)) ? 'int' : 'string';
     }
 
     private function randNewID()
