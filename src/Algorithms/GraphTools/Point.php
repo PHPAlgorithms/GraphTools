@@ -80,11 +80,13 @@ class Point
     public function setX($x)
     {
         $this->x = intval($x);
+        return $this;
     }
 
     public function setY($y)
     {
         $this->y = intval($y);
+        return $this;
     }
 
     public function getX()
