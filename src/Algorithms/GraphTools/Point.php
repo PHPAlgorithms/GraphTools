@@ -6,6 +6,8 @@ class Point
     private $_id;
     private $distances = array();
     private $label = null;
+    private $x;
+    private $y;
 
     public function __construct($pointId, $label = null)
     {
@@ -73,5 +75,25 @@ class Point
     public function getLabel()
     {
         return $this->label;
+    }
+
+    public function setX($x)
+    {
+        $this->x = intval($x);
+    }
+
+    public function setY($y)
+    {
+        $this->y = intval($y);
+    }
+
+    public function getX()
+    {
+        return $this->x;
+    }
+
+    public function getY()
+    {
+        return $this->y;
     }
 }
