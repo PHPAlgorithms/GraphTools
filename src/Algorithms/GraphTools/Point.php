@@ -4,7 +4,7 @@ namespace Algorithms\GraphTools;
 class Point
 {
     private $_id;
-    private $distances = array();
+    private $connections = array();
     private $label = null;
     private $x;
     private $y;
@@ -44,7 +44,11 @@ class Point
     {
         $point = $this::validate($point);
 
-        $this->distances[$point] = $distance;
+        if (!isset($this->connections[$point]) || !is_array($this->connections[$point])) {
+            $this->connections[$point] = array();
+        }
+
+        $this->connections[$point][] = new Connection($this, $point, $distance);
 
         return $this;
     }
@@ -53,8 +57,10 @@ class Point
     {
         $distances = array();
 
-        foreach ($this->distances as $pointId => $distance) {
-            $distances[] = [$pointId, $distance];
+        foreach ($this->connections as $pointId => $distances) {
+            foreach ($distances as $distance) {
+                $distances[] = [$pointId, $distance];
+            }
         }
 
         return $distances;
