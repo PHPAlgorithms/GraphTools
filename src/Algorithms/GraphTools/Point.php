@@ -96,4 +96,25 @@ class Point
     {
         return $this->y;
     }
+
+    public function toArray()
+    {
+        $array = array(
+            'id' => $this->_id
+        );
+
+        if (!empty($this->label)) {
+            $array['label'] = $this->label;
+        }
+
+        if (!empty($this->x)) {
+            $array['x'] = $this->x;
+        }
+
+        if (!empty($this->y)) {
+            $array['y'] = $this->y;
+        }
+
+        return $array;
+    }
 }
