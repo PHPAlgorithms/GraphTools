@@ -109,11 +109,11 @@ class Point
             $array['label'] = $this->label;
         }
 
-        if (!empty($this->x)) {
+        if (!is_null($this->x)) {
             $array['x'] = $this->x;
         }
 
-        if (!empty($this->y)) {
+        if (!is_null($this->y)) {
             $array['y'] = $this->y;
         }
 
