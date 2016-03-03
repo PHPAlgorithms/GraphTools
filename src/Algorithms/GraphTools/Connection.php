@@ -7,40 +7,19 @@ class Connection
     private $to;
     private $distance;
 
-    public function __construct($from, $to, $distance)
+    public function __construct(Point $from, Point $to, $distance)
     {
-        if (self::isPoint($from) && self::isPoint($to)) {
-            $this->from = $from;
-            $this->to = $to;
-        } else {
-            throw new ConnectionException('Sent data are not points');
+        if (!(filter_var($distance, FILTER_VALIDATE_INT) || is_numeric($distance)) && ($distance > 0)) {
+            throw new ConnectionException('Distance must be positive number');
         }
 
-        $distance = intval($distance);
-        if ($distance > 0) {
-            $this->distance = $distance;
-        } else {
-            throw new ConnectionException('Distance is less than or equal to zero');
-        }
+        $this->from = $from;
+        $this->to = $to;
+        $this->distance = $distance;
     }
 
-    private static function isPoint($element)
+    public function __get($name)
     {
-        return ($element instanceof Point) || (filter_var($element, FILTER_VALIDATE_INT) !== false);
-    }
-
-    public function getFrom()
-    {
-        return $this->from;
-    }
-
-    public function getTo()
-    {
-        return $this->to;
-    }
-
-    public function getDistance()
-    {
-        return $this->distance;
+        return $this->{$name};
     }
 }

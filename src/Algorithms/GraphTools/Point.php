@@ -3,126 +3,81 @@ namespace Algorithms\GraphTools;
 
 class Point
 {
-    private $_id;
-    private $connections = array();
-    private $label = null;
-    private $x;
-    private $y;
+    protected $id,
+              $x,
+              $y,
+              $label = null;
 
-    public function __construct($pointId, $label = null)
+    public function __construct($id, $label = null)
     {
-        if (filter_var($pointId, FILTER_VALIDATE_INT) !== false) {
-            $this->_id = $pointId;
-            $this->label = $label;
-        } else {
-            throw new PointException('Wrong data sent');
+        if (!(filter_var($id, FILTER_VALIDATE_INT) || is_numeric($value))) {
+            throw new PointException('ID is must be a number');
         }
+
+        $this->id = $id;
+        $this->label = $label;
     }
 
-    public static function create($pointId, $label = null)
+    public static function create($id, $label = null)
     {
-        return new self($pointId, $label);
+        return new self($id, $label);
     }
 
-    public static function checkPoint($point)
+    public static function check($point)
     {
         return ($point instanceof self);
     }
 
-    public static function validate($point)
+    public static function checkOrFail($point)
     {
-        if (filter_var($point, FILTER_VALIDATE_INT) !== false) {
-            return $point;
-        } elseif (self::checkPoint($point)) {
-            return $point->getID();
-        } else {
-            throw new PointException('Wrong data sent');
-        }
-    }
-
-    public function addRelation($point, $distance)
-    {
-        $point = $this::validate($point);
-
-        if (!isset($this->connections[$point]) || !is_array($this->connections[$point])) {
-            $this->connections[$point] = array();
+        if (!Point::check($point)) {
+            throw new PointException('Sent object is not a Point');
         }
 
-        $this->connections[$point][] = new Connection($this, $point, $distance);
-
-        return $this;
+        return true;
     }
 
-    public function getDinstances()
+    public function __get($name)
     {
-        $distances = array();
+        return $this->{$name};
+    }
 
-        foreach ($this->connections as $pointId => $distances) {
-            foreach ($distances as $distance) {
-                $distances[] = [$pointId, $distance];
+    public function __set($name, $value)
+    {
+        if (in_array($name, array('x', 'y'))) {
+            if (!(filter_var($value, FILTER_VALIDATE_INT) || is_numeric($value))) {
+                throw new PointException("Parameter {$value} must be a number");
             }
+
+            $this->{$name} = $value;
+        } elseif ($name == 'id') {
+            throw new PointException('You can\'t change point ID');
+        } else {
+            $this->{$name} = $value;
         }
-
-        return $distances;
-    }
-
-    public function distanceTo($point)
-    {
-        $point = $this::validate($point);
-
-        return (isset($this->distances[$point])) ? $this->distances[$point] : false;
-    }
-
-    public function getID()
-    {
-        return $this->_id;
-    }
-
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    public function setX($x)
-    {
-        $this->x = intval($x);
-        return $this;
-    }
-
-    public function setY($y)
-    {
-        $this->y = intval($y);
-        return $this;
-    }
-
-    public function getX()
-    {
-        return $this->x;
-    }
-
-    public function getY()
-    {
-        return $this->y;
     }
 
     public function toArray()
     {
-        $array = array(
-            'id' => $this->_id
+        $point = array(
+            'id' => $this->id,
         );
 
-        if (!empty($this->label)) {
-            $array['label'] = $this->label;
+        foreach (array('label', 'x', 'y') as $name) {
+            if (!is_null($this->{$name})) {
+                $point[$name] = $this->{$name};
+            }
         }
 
-        if (!is_null($this->x)) {
-            $array['x'] = $this->x;
-        }
+        return $point;
+    }
 
-        if (!is_null($this->y)) {
-            $array['y'] = $this->y;
-        }
-
-        return $array;
+    public function addConnection(Point $point, $distance)
+    {
+        return new ConnectionsContainer(
+            array(
+                new Connection($this, $point, $distance),
+            )
+        );
     }
 }
