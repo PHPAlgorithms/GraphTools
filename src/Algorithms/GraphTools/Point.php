@@ -30,7 +30,7 @@ class Point
 
     public static function checkOrFail($point)
     {
-        if (!Point::check($point)) {
+        if (!self::check($point)) {
             throw new PointException('Sent object is not a Point');
         }
 
