@@ -44,17 +44,17 @@ class Point
 
     public function __set($name, $value)
     {
+        if ($name == 'id') {
+            throw new PointException('You can\'t change point ID');
+        }
+
         if (in_array($name, array('x', 'y'))) {
             if (!(filter_var($value, FILTER_VALIDATE_INT) || is_numeric($value))) {
                 throw new PointException("Parameter {$value} must be a number");
             }
-
-            $this->{$name} = $value;
-        } elseif ($name == 'id') {
-            throw new PointException('You can\'t change point ID');
-        } else {
-            $this->{$name} = $value;
         }
+
+        $this->{$name} = $value;
     }
 
     public function toArray()
