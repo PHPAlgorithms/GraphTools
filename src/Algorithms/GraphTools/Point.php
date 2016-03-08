@@ -10,7 +10,7 @@ class Point
 
     public function __construct($id, $label = null)
     {
-        if (!(filter_var($id, FILTER_VALIDATE_INT) || is_numeric($value))) {
+        if (!(filter_var($id, FILTER_VALIDATE_INT) || is_numeric($id))) {
             throw new PointException('ID is must be a number');
         }
 
