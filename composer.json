@@ -1,9 +1,9 @@
 {
-  "name": "algorithms/graphtools",
-  "description": "Graph tools to another math algorithms.",
+  "name": "phpalgorithms/graphtools",
+  "description": "Graph tools written in PHP.",
   "type": "library",
   "homepage": "https://github.com/PHPAlgorithms/GraphTools",
-  "keywords": ["algorithm", "graph", "math", "tool", "tools"],
+  "keywords": ["algorithm", "algorithms", "graph", "math", "php", "tool", "tools"],
   "authors": [
     {
       "name": "ventaquil",
@@ -12,9 +12,9 @@
   ],
   "license": "MIT",
   "autoload": {
-    "psr-0": {
-      "Algorithms": "src/",
-      "Algorithms\\Tests": "tests/"
+    "psr-4": {
+      "PHPAlgorithms\\GraphTools\\": "src/",
+      "PHPAlgorithms\\GraphTools\\Tests\\": "tests/"
     }
   },
   "require": {
