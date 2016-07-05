@@ -46,19 +46,20 @@ abstract class Line {
 
         $lowestDimension = self::getLowestPointsDimension($from, $to);
 
-        switch ($lowestDimension) {
-            case 0:
-                return new AbstractLine($from, $to);
-            case 1:
-                return new Line1D($from, $to);
-            case 2:
-                return new Line2D($from, $to);
-            case 3:
-                return new Line3D($from, $to);
-            case 4:
-                return new Line4D($from, $to);
-            default:
-                throw new LineException('Unknown dimension');
+        $argsToClass = array(
+            'AbstractLine',
+            'Line1D',
+            'Line2D',
+            'Line3D',
+            'Line4D',
+        );
+
+        if (!isset($argsToClass[$lowestDimension])) {
+            throw new LineException('Unknown dimension');
         }
+
+        $className = __NAMESPACE__ . "\\{$argsToClass[$lowestDimension]}";
+
+        return new $className($from, $to);
     }
 }
