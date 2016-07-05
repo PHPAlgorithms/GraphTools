@@ -54,7 +54,7 @@ class Point2D extends Point1D implements PointInterface {
      *
      * @param int|float $x Move vector on OX axis.
      * @param int|float $y Move vector on OY axis.
-     * @return Point1D Method returns current object instance.
+     * @return Point2D Method returns current object instance.
      */
     public function move($x = 0, $y = 0)
     {
