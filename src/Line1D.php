@@ -13,13 +13,16 @@ use PHPAlgorithms\GraphTools\Exceptions\LineException;
 /**
  * Class Line1D
  * @package PHPAlgorithms\GraphTools
+ * @property-read float $length
  * @property-read float $width
  */
 class Line1D extends AbstractLine implements LineInterface {
     /**
+     * @var float $length Line length property.
      * @var float $width Line width property.
      */
-    protected $width;
+    protected $length,
+              $width;
 
     /**
      * Method checks sent variable and throws LineException if it is not an Point1D instance.
@@ -35,11 +38,11 @@ class Line1D extends AbstractLine implements LineInterface {
     }
 
     /**
-     * Method counts width.
+     * Method counts length.
      *
-     * return float Line width.
+     * return float Line length.
      */
-    protected function countWidth()
+    protected function countLength()
     {
         return abs($this->from->x - $this->to->x);
     }
@@ -54,6 +57,7 @@ class Line1D extends AbstractLine implements LineInterface {
     {
         parent::__construct($from, $to);
 
-        $this->width = $this->countWidth();
+        $this->width = $this->length
+                     = $this->countLength();
     }
 }

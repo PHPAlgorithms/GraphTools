@@ -33,7 +33,7 @@ class Line4D extends Line3D implements LineInterface {
      *
      * return float Line width.
      */
-    protected function countWidth()
+    protected function countLength()
     {
         return sqrt(pow($this->from->x - $this->to->x, 2) + pow($this->from->y - $this->to->y, 2) + pow($this->from->z - $this->to->z, 2) + pow($this->from->t - $this->to->t, 2));
     }

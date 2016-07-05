@@ -53,7 +53,7 @@ class LineTest extends \PHPUnit_Framework_TestCase {
         $to = Point::create();
         $abstractLine = new AbstractLine($from, $to);
 
-        $this->assertNull($abstractLine->width);
+        $this->assertNull($abstractLine->length);
         $this->assertEquals($from, $abstractLine->from);
         $this->assertEquals($to, $abstractLine->to);
     }
@@ -107,13 +107,13 @@ class LineTest extends \PHPUnit_Framework_TestCase {
     {
         $line1D = new Line1D(Point::create(0), Point::create(5));
 
-        $this->assertEquals(5, $line1D->width);
+        $this->assertEquals(5, $line1D->length);
 
         $from = Point::create(8);
         $to = Point::create(1);
         $line1D = new Line1D($from, $to);
 
-        $this->assertEquals(7, $line1D->width);
+        $this->assertEquals(7, $line1D->length);
         $this->assertEquals($from, $line1D->from);
         $this->assertEquals($to, $line1D->to);
     }
@@ -167,13 +167,13 @@ class LineTest extends \PHPUnit_Framework_TestCase {
     {
         $line2D = new Line2D(Point::create(0, 0), Point::create(1, 1));
 
-        $this->assertEquals(sqrt(2), $line2D->width);
+        $this->assertEquals(sqrt(2), $line2D->length);
 
         $from = Point::create(3, 0);
         $to = Point::create(-2, 0);
         $line2D = new Line2D($from, $to);
 
-        $this->assertEquals(5, $line2D->width);
+        $this->assertEquals(5, $line2D->length);
         $this->assertEquals($from, $line2D->from);
         $this->assertEquals($to, $line2D->to);
     }
@@ -227,13 +227,13 @@ class LineTest extends \PHPUnit_Framework_TestCase {
     {
         $line3D = new Line3D(Point::create(0, 0, 0), Point::create(1, 1, 1));
 
-        $this->assertEquals(sqrt(3), $line3D->width);
+        $this->assertEquals(sqrt(3), $line3D->length);
 
         $from = Point::create(0, 0, 1);
         $to = Point::create(-2, 2, -1);
         $line3D = new Line3D($from, $to);
 
-        $this->assertEquals(sqrt(12), $line3D->width);
+        $this->assertEquals(sqrt(12), $line3D->length);
         $this->assertEquals($from, $line3D->from);
         $this->assertEquals($to, $line3D->to);
     }
@@ -287,13 +287,13 @@ class LineTest extends \PHPUnit_Framework_TestCase {
     {
         $line4D = new Line4D(Point::create(0, 0, 0, 0), Point::create(1, 1, 1, 1));
 
-        $this->assertEquals(2, $line4D->width);
+        $this->assertEquals(2, $line4D->length);
 
         $from = Point::create(1, 2, 3, 4);
         $to = Point::create(-1, -2, -3, -4);
         $line4D = new Line4D($from, $to);
 
-        $this->assertEquals(sqrt(120), $line4D->width);
+        $this->assertEquals(sqrt(120), $line4D->length);
         $this->assertEquals($from, $line4D->from);
         $this->assertEquals($to, $line4D->to);
     }
