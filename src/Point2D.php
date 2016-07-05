@@ -35,7 +35,7 @@ class Point2D extends Point1D implements PointInterface {
     }
 
     /**
-     * Point1D constructor.
+     * Point2D constructor.
      *
      * @param int|float $x Position on OX axis.
      * @param int|float $y Position on OY axis.
