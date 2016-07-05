@@ -79,8 +79,8 @@ class AbstractLine implements LineInterface {
     /**
      * Abstract Line constructor.
      *
-     * @param AbstractPoint $from First end of the line.
-     * @param AbstractPoint $to Second end of the line.
+     * @param mixed $from First end of the line.
+     * @param mixed $to Second end of the line.
      */
     public function __construct($from, $to)
     {
