@@ -84,10 +84,10 @@ class AbstractLine implements LineInterface {
      */
     public function __construct($from, $to)
     {
-        $this->checkPoints($from, $to);
-
         $this->setFrom($from);
 
         $this->setTo($to);
+
+        $this->checkPoints($from, $to);
     }
 }
