@@ -49,7 +49,7 @@ class Point1D extends AbstractPoint implements PointInterface {
     /**
      * Move point by sent value.
      *
-     * @param int|float $x Move vector.
+     * @param int|float $x Move vector on OX axis.
      * @return Point1D Method returns current object instance.
      */
     public function move($x = 0)
