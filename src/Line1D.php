@@ -13,13 +13,13 @@ use PHPAlgorithms\GraphTools\Exceptions\LineException;
 /**
  * Class Line1D
  * @package PHPAlgorithms\GraphTools
- * @property-read float $length
- * @property-read float $width
+ * @property-read int|float $length
+ * @property-read int|float $width
  */
 class Line1D extends AbstractLine implements LineInterface {
     /**
-     * @var float $length Line length property.
-     * @var float $width Line width property.
+     * @var int|float $length Line length property.
+     * @var int|float $width Line width property.
      */
     protected $length,
               $width;
