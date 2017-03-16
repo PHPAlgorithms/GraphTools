@@ -1,26 +1,34 @@
 {
-  "name": "phpalgorithms/graphtools",
-  "description": "Graph tools written in PHP.",
-  "type": "library",
-  "homepage": "https://github.com/PHPAlgorithms/GraphTools",
-  "keywords": ["algorithm", "algorithms", "graph", "math", "php", "tool", "tools"],
-  "authors": [
-    {
-      "name": "ventaquil",
-      "email": "ventaquil@outlook.com"
+    "name": "phpalgorithms/graphtools",
+    "description": "Graph tools written in PHP.",
+    "type": "library",
+    "homepage": "https://github.com/PHPAlgorithms/GraphTools",
+    "keywords": [
+        "algorithm",
+        "algorithms",
+        "graph",
+        "math",
+        "php",
+        "tool",
+        "tools"
+    ],
+    "authors": [
+        {
+            "name": "ventaquil",
+            "email": "ventaquil@outlook.com"
+        }
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "PHPAlgorithms\\GraphTools\\": "src/",
+            "PHPAlgorithms\\GraphTools\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.*"
     }
-  ],
-  "license": "MIT",
-  "autoload": {
-    "psr-4": {
-      "PHPAlgorithms\\GraphTools\\": "src/",
-      "PHPAlgorithms\\GraphTools\\Tests\\": "tests/"
-    }
-  },
-  "require": {
-    "php": ">=5.5.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "4.*"
-  }
 }
