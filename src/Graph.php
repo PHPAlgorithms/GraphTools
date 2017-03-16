@@ -80,13 +80,74 @@ class Graph extends BuildableAbstract
      * @param Node $to
      * @return Connection[]
      */
-    public function getDistances(Node $from, Node $to) : array
+    public function getConnections(Node $from, Node $to) : array
     {
         if (isset($this->connections[$from->id][$to->id])) {
             return $this->connections[$from->id][$to->id];
         }
 
         return array();
+    }
+
+    /**
+     * @param Node $from
+     * @param Node $to
+     * @return (float|null)[]
+     */
+    public function getDistances(Node $from, Node $to) : array
+    {
+        $distances = array();
+
+        foreach ($this->getConnections($from, $to) as $connection) {
+            /**
+             * @var Connection $connection
+             */
+
+            $distances[] = $connection->getWeight();
+        }
+
+        return $distances;
+    }
+
+    /**
+     * @param Node $from
+     * @param Node $to
+     * @return null|Connection
+     */
+    public function getNearestConnection(Node $from, Node $to) : ?Connection
+    {
+        /**
+         * @var null|Connection $nearest
+         */
+        $nearest = null;
+
+        foreach ($this->getConnections($from, $to) as $connection) {
+            /**
+             * @var Connection $connection
+             */
+
+            if (is_null($nearest) || ($nearest->getWeight() > $connection->getWeight())) {
+                $nearest = $connection;
+            }
+        }
+
+        return $nearest;
+    }
+
+    /**
+     * @param Node $from
+     * @param Node $to
+     * @return null|float
+     */
+    public function getNearestDistance(Node $from, Node $to) : ?float
+    {
+        $nearest = $this->getNearestConnection($from, $to);
+
+        if (is_null($nearest)) {
+            return null;
+        }
+
+        return $nearest->getWeight();
     }
 
     /**
